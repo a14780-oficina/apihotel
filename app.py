@@ -1,22 +1,15 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from resources.hotel import Hoteis, Hotel
 
 #Variável para representar a app
 app = Flask(__name__)
 api = Api(app)
-
-hotels = [
-    {"hotel_id": "paraiso", "nome": "Hotel Paraiso", "estrelas": 4.6, "diaria": 123.99, "cidade": "Porto"},
-    {"hotel_id": "fukui", "nome": "Fukui Resort", "estrelas": 4.8, "diaria": 255.99, "cidade": "Viena"}, 
-    {"hotel_id": "aguas", "nome": "Hotel Águas", "estrelas": 4.2, "diaria": 193.99, "cidade": "Lisboa"}
-]
-
-class Hoteis(Resource):
-    def get(self):
-        return { "hoteis": hoteis }
-
+  
 #Rotas
 api.add_resource(Hoteis, "/hoteis")
+api.add_resource(Hotel,"/hoteis/<string:id_hotel>")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
