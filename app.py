@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from resources.hotel import Hoteis, Hotel
-from con_sql import db
+from con_sql import bd
 
 #Variável para representar a app
 app = Flask(__name__)

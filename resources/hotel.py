@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse 
+from models.hotel import HotelModel
 hoteis = [
     {"hotel_id": "paraiso", "nome": "Hotel Paraiso", "estrelas": 4.6, "diaria": 123.99, "cidade": "Porto"},
     {"hotel_id": "fukui", "nome": "Fukui Resort", "estrelas": 4.8, "diaria": 255.99, "cidade": "Viena"}, 
@@ -29,9 +30,10 @@ class Hotel(Resource):
         for hotel in hoteis:
             if hotel["hotel_id"] == id_hotel:   
                 return{ "message": "Hotel with this id already exists"}
-        novo_hotel = {"hotel_id": id_hotel, **dados}    
-        hoteis.append(novo_hotel)
-        return novo_hotel, 200
+            
+        novo_hotel = HotelModel(id_hotel, **dados) 
+        #hoteis.append(novo_hotel)
+        return novo_hotel.json, 200
 
     def put(self, id_hotel):
             dados = Hotel.argumentos.parse_args() #Dicionario
