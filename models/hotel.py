@@ -1,4 +1,5 @@
 from con_sql import bd
+from resources import hotel
 
 class HotelModel(bd.Model):
     __tablename__ = "hoteis"
@@ -24,3 +25,27 @@ class HotelModel(bd.Model):
             "diaria": self.diaria,
             "cidade": self.cidade,
         }
+
+    @classmethod
+    def find_hotel(cls, hotel_id):
+        hotel = cls.query.filter_by(hotel_id=hotel_id).first()
+        # SELECT * FROM hoteis WHERE hotel_id = hotel_id LIMIT 1
+        if hotel:
+            return hotel
+        return None 
+
+    def save_hotel(self):
+        bd.session.add(self)
+        bd.session.commit()   
+    
+    def delete_hotel(self):
+        bd.session.delete(self)
+        bd.session.commit() 
+        
+    def update_hotel(self, nome_atualizado, estrelas_atualizadas, diaria_atualizada, cidade_atualizada):
+        self.nome = nome_atualizado
+        self.estrelas = estrelas_atualizadas
+        self.diaria = diaria_atualizada
+        self.cidade = cidade_atualizada 
+        
+        
