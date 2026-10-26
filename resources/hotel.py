@@ -33,4 +33,19 @@ class Hotel(Resource):
         hoteis.append(novo_hotel)
         return novo_hotel, 200
 
+    def put(self, id_hotel):
+            dados = Hotel.argumentos.parse_args() #Dicionario
+            for hotel in hoteis:
+                if hotel["hotel_id"] == id_hotel:  
+                    hotel.update(dados)
+                    return hotel, 200
+                 
+            novo_hotel = {"hotel_id": id_hotel, **dados}    
+            hoteis.append(novo_hotel)
+            return novo_hotel, 201
+
+    def delete(self, id_hotel):
+        global hoteis
+        hoteis = [hotel for hotel in hoteis if hotel["hotel_id"] != id_hotel]
+        return { "message": "Hotel deleted." }, 200
          
